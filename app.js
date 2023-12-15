@@ -24,5 +24,3 @@ app.use((err, req, res, next) => {
 });
 
 export default app;
-
-app.listen(3000, () => console.log("Server is running on 3000 Port"));
