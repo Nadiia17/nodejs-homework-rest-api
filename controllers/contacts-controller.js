@@ -59,7 +59,7 @@ const updateById = async (req, res, next) => {
 const deleteById = async (req, res, next) => {
   try {
     const { contactId } = req.params;
-    const result = await contactsService.getContactById(contactId);
+    const result = await contactsService.removeContact(contactId);
     if (!result) {
       throw HttpError(404, `Contact with id=${contactId} not found`);
     }
