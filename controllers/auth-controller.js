@@ -22,8 +22,10 @@ const signup = async (req, res) => {
   const newUser = await User.create({ ...req.body, password: hashPassword });
 
   res.json({
-    email: newUser.email,
-    subscription: newUser.subscription,
+    user: {
+      email: newUser.email,
+      subscription: newUser.subscription,
+    },
   });
 };
 
@@ -49,20 +51,24 @@ const signin = async (req, res) => {
 
   res.json({
     token,
+    user: {
+      email: user.email,
+      subscription: user.subscription,
+    },
   });
 };
 
 const getCurrent = async (req, res) => {
-  const { email } = req.user;
+  const { email, subscription } = req.user;
 
-  res.json({ email });
+  res.json({ email, subscription });
 };
 
 const logout = async (req, res) => {
   const { _id } = req.user;
   await User.findByIdAndUpdate(_id, { token: "" });
 
-  res.json({ message: "Logout success" });
+  res.status(204).end();
 };
 
 export default {
